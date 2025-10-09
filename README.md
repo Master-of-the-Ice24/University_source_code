@@ -1,3 +1,3 @@
 # University
 
-Qua saranno caricati programmi visti a lezione ed eventuali soluzioni di quelli assegnati per casa.
+Qua saranno caricati i programmi visti a lezione ed eventuali soluzioni di quelli assegnati per casa.
