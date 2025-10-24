@@ -5,8 +5,6 @@
 
 #define ESCAPE 27
 #define ENTER 10
-/////////////////////////////// 
-///////////
 
 int main(void) {
     WINDOW win;
