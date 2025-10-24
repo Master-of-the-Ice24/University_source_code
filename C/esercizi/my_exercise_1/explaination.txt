@@ -1,5 +1,0 @@
-RESOURCES:
-link for key buttons:				https://samuallb.github.io/ncurses/NCurses/Key.html
-//   for overview and code: 		http://www.linuxfocus.org/English/March2002/article233.meta.shtml
-//   for code explaination:			https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/init.html#ABOUTINIT
-//	 for menu:						https://en.ittrip.xyz/c-language/c-interactive-menus-docker
