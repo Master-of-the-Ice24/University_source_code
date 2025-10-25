@@ -17,8 +17,8 @@ void dinamicAppendValue(int **array, int number, int *length) {     //"**array" 
     int *newArray = (int *) realloc(*array, (*length)*sizeof(int));     //creazione di una variabile che contiene un indirizzo di memoria che punta al primo intero del vecchio array e aggiunge una posizione alla fine
     if (newArray == NULL) {     //se il valore di questa variabile non è un indirizzo di memoria ma NULL significa che l'allocazione non è andata a buon fine
         printf("Segmentation fault, shutting down");
-        free(*array);       //si restituisce al S.O. la variabile che conteneva l'indirizzo di memoria che avrebbe portato al primo intero dell'array iniziale
-        *array = NULL;      //la variabile che conteneva l'indirizzo di memoria che avrebbe portato al primo intero dell'array iniziale è annullato
+        free(*array);       //si restituisce al S.O. il buffer usato per l'array
+        *array = NULL;      //la variabile che conteneva l'indirizzo di memoria che avrebbe portato al primo intero dell'array iniziale è impostata a 0
         return;     //rischiando segmentation fault la funzione è terminata
     } 
 
