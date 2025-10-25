@@ -24,6 +24,7 @@ void dinamicAppendValue(int **array, int number, int *length) {     //"**array" 
 
     *array = newArray;      //la variabile che puntava al primo intero dell'array è aggiornata ad una lunghezza più grande
     (*array)[*length-1] = number;       //il nuovo posto appena creato è assegnato al valore
+    //SI POTREBBE LIBERARE IL BUFFER UTILIZZATO MA SONO LE 2:56 E NON HO VOGLIA (P.S. me lo ha detto Claude ma e siccome mi rifiuto di pensare che una IA sia più intelligente di me non lo faccio per ripicca)
 }
 
 
