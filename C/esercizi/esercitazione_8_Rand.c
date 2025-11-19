@@ -1,6 +1,7 @@
 /*
 
-Scrivere un programma che richieda in ingresso un massimo di DIM (dove DIM è una macro) numeri interi non negativi (fermandosi quandoviene inserito un numero negativo) e stampi il numero minimo, il numero massimo, la media aritmetica e inumeri più frequenti. 
+Scrivere un programma che richieda in ingresso un massimo di DIM (dove DIM è una macro) numeri interi non negativi (fermandosi quando viene 
+inserito un numero negativo) e stampi il numero minimo, il numero massimo, la media aritmetica e i numeri più frequenti. 
 Per l’input e per il calcolo delle statistiche creare apposite funzioni con parametro di tipo array.
 
 Per testare il programma,
@@ -21,13 +22,28 @@ void getMostFrequent() {
 
 
 void getMaxMin(int *vector) {
-    
+    int max=vector[0], min=vector[0];
+
+    for (int i=0; i<DIM; i++) {
+        if (max < vector[i])
+            max = vector[i];
+
+        if (min > vector[i])
+            min = vector[i];
+    }
+
+    printf("\n\nmax is %d, min is %d", max, min);
 
 }
 
 
 void aritmeticAverage() {
 
+
+}
+
+void stats(int *vector, int *end) {
+    getMaxMin(vector);
 
 }
 
@@ -39,13 +55,15 @@ int main(void) {
         scanf("%d", &vector[i]);
         
         if (vector[i] < 0) {
-            printf("Nagative number, shutting down...");
-            return 11;
+            printf("Nagative number, reading...");
+            break;
         }
         
     }
 
-    getMaxMin(vector);
+    //getMaxMin(vector);
+    
+    stats(vector);
 
     return 0;
 }
