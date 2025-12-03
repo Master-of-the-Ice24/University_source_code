@@ -1,11 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-
-typedef struct {
-    char name[20];
-    float salary;
-} Employee;
+#include "./employee.h"
 
 
 int main() {
@@ -13,7 +8,8 @@ int main() {
         {"Rossi", 2000},
         {"Giordani", 1700},
         {"Petrelli", 2300},
-        {"Bovina", 900}
+        {"Bovina", 900},
+        {"Ferrari", 1800}
     };
 
 
