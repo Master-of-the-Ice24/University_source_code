@@ -11,8 +11,7 @@ int main() {
         {"Bovina", 900},
         {"Ferrari", 1800}
     };
-
-
+    
     FILE *document;
 
     if ((document = fopen("salaries.dat", "wb")) == NULL) {
@@ -27,5 +26,6 @@ int main() {
         exit(2);
     }
 
+    
     return 0;
 };
