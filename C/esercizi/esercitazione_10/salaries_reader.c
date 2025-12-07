@@ -25,7 +25,7 @@ int main() {
     for (int i=0; i<5; i++) {
         //fread(&vector[i], sizeof(Employee), 1 ,document);
         fread(vector + i, sizeof(Employee), 1 ,document);
-        printf("\n%s %0.2f", vector[i].name, vector[i].salary);
+        printf("\n%d %s %0.2f", i, vector[i].name, vector[i].salary);
     }
 
     if (fclose(document) != 0) {
