@@ -1,8 +1,6 @@
 typedef struct{
-    char fiscalCode[16];
-    int day;
-    int month;
-    int year;
+    char fiscalCode[17];
+    int day, month, year;
     float amount;
 
 } clientsRawList;
