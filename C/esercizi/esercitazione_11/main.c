@@ -1,11 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./clientsList.h"
+#include <string.h>
+
+
+char *splitter(char *line) {
+    char *splitted = (char *)malloc(6*sizeof(char));
+    int lenght = 0;
+
+    for (int i=0; i<sizeof(line); i++) {
+        if (line[i] == " ") {
+            lenght = i-1;
+            strncpy(splitted[i], line[i], lenght);
+    }
+    
+    }
+    return splitted;
+    
+}
 
 
 void readFile(char *filename) {
     FILE *documentManager;
     char text[256], line[256];
+    char 
 
     documentManager = fopen(filename, "rt");
 
@@ -15,7 +33,8 @@ void readFile(char *filename) {
     }
 
     while (fgets(line, 255, documentManager)) {
-        printf("%s ", line);
+        printf("%s", line);
+
         
     }
     
