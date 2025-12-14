@@ -1,41 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "./clientsList.h"
 
 
-char **splitter(char *line) {
-    char **splitted = (char **)malloc(4*sizeof(char *));
-    int lenght = 0, start = 0, innerIndex = 0;
-
-    for (int i=0; line[i]!='\0'; i++) {
-        if (line[i] == ' ') {
-            lenght = i - start;
-            splitted[innerIndex] = (char *)malloc(256*sizeof(char));
-            strncpy(splitted[innerIndex], line + start, lenght);
-            splitted[innerIndex][lenght] = '\0';
-            innerIndex++;
-            start = i + 1;
-        }
-    }
-
-    int finalPosition = strlen(line);
-    int finalLength = finalPosition - start;
-    splitted[innerIndex] = (char *)malloc(256*sizeof(char));
-    strncpy(splitted[innerIndex], line + start, finalLength);
-    splitted[innerIndex][finalLength] = '\0';
-    splitted[innerIndex + 1] = NULL;
-
-    return splitted;
+void addNode(char *code, int day, int month, int year, float amount, clientsList *pastNode) {
+    clientsList *newNode = (clientsList *)malloc(sizeof(clientsList));
+    (*pastNode).next = newNode;
+    (*newNode).next = NULL;
+    
+    memcpy((*newNode).information.fiscalCode, code, sizeof(char)*16);
+    (*newNode).information.day = day;
+    (*newNode).information.month = month;
+    (*newNode).information.year = year;
+    (*newNode).information.amount = amount;
 }
+
+
+void dataFetcher(char *filename) {
+    FILE *filePointer;
+
+    filePointer = fopen(filename, "rt");
+
+    if (filePointer == NULL)
+        printf("Error in opening");
+
+    char code[256];
+    int day, month, year;
+    float amount;
+
+    /////////////
+    clientsList *node = (clientsList *)malloc(sizeof(clientsList));
+
+    for (int i=0; i<30; i++) {
+        fscanf(filePointer, "%s %d %d %d %f", &code, &day, &month, &year, &amount);
+        addNode(code, day, month, year, amount, node);
+        node = (*node).next;
+
+        printf("%0.2f\n", (*node).information.amount);
+    }
     
-    
-int main() {
-    char example[256] = "HRNTZV39Y56X303E 5 6 2023 818.50";
+    fclose(filePointer);
 
-    char **result = splitter(example);
-
-    for (int i=0; i<5; i++) 
-        printf("\n%d:  %s ", i, result[i]);
-
-    return 0;
+    if (filePointer != 0) 
+        printf("Error in closing");
 }

@@ -1,33 +1,45 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
+#include "../clientsList.h"
 
-#define NUM_ALPHA  26
- 
-int main(void)
-{
-  FILE * stream;
-  int num;       /* number of characters read from stream */
- 
-  /* Do not forget that the '\0' char occupies one character too! */
-  char buffer[NUM_ALPHA + 1];
- 
-  if (( stream = fopen("myfile", "r"))!= NULL )
-  {
-    memset(buffer, 0, sizeof(buffer));
-    num = fread( buffer, sizeof( char ), NUM_ALPHA, stream );
-    if ( num ) {  /* fread success */
-      printf( "Number of characters has been read = %i\n", num );
-      printf( "buffer = %s\n", buffer );
-      fclose( stream );
+
+
+void readFile(char *filename) {
+    FILE *documentManager;
+
+    documentManager = fopen(filename, "rt");
+
+    if (documentManager == NULL) {
+        printf("Error, shutting down...");
+        exit(1);
     }
-    else {  /* fread failed */
-      if ( ferror(stream) )    /* possibility 1 */
-        perror( "Error reading myfile" );
-      else if ( feof(stream))  /* possibility 2 */
-        perror( "EOF found" );
+    
+    clientsRawList list[256];
+    
+    for (int i=0; i<28; i++) {
+        fscanf(documentManager, "%s %d %d %d %f", &(list[i]).fiscalCode, 
+                                                    &(list[i]).day, 
+                                                    &(list[i]).month, 
+                                                    &(list[i]).year, 
+                                                    &(list[i]).amount);
     }
-  }
-  else
-    perror( "Error opening myfile" );
- 
+
+    for (int i=0; i<60; i++) {
+        printf("%d %s\n", i, list[i].fiscalCode);
+    }
+    
+    fclose(documentManager); 
+
+
+    if (documentManager != 0) {
+        printf("\nError in closing");
+    }
+}
+
+
+int main(int argc, char **argv) {
+    
+    readFile(argv[1]);
+
+    return 0;
 }

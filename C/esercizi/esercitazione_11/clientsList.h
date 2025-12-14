@@ -3,4 +3,14 @@ typedef struct{
     int day, month, year;
     float amount;
 
-} clientsRawList;
+} clientsInfo;
+
+
+typedef struct clientsList {
+    clientsInfo information;
+    struct clientsList *next;
+    
+} clientsList;
+
+
+void dataFetcher(char *filename);
