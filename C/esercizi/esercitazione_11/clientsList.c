@@ -29,15 +29,21 @@ void dataFetcher(char *filename) {
     int day, month, year;
     float amount;
 
-    /////////////
     clientsList *node = (clientsList *)malloc(sizeof(clientsList));
+    clientsList *head = node;
 
     for (int i=0; i<30; i++) {
         fscanf(filePointer, "%s %d %d %d %f", &code, &day, &month, &year, &amount);
         addNode(code, day, month, year, amount, node);
         node = (*node).next;
 
+        //printf("%0.2f\n", (*node).information.amount);
+    }
+
+    node = head;
+    while (node != NULL) {
         printf("%0.2f\n", (*node).information.amount);
+        node = (*node).next;
     }
     
     fclose(filePointer);
