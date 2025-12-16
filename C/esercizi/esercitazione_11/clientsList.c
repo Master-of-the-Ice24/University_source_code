@@ -1,19 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "./clientsList.h"
 
 
-void addNode(char *code, int day, int month, int year, float amount, clientsList *pastNode) {
+void createNode(clientsList *pastNode) {
     clientsList *newNode = (clientsList *)malloc(sizeof(clientsList));
-    (*pastNode).next = newNode;
     (*newNode).next = NULL;
-    
-    memcpy((*newNode).information.fiscalCode, code, sizeof(char)*16);
-    (*newNode).information.day = day;
-    (*newNode).information.month = month;
-    (*newNode).information.year = year;
-    (*newNode).information.amount = amount;
+    (*pastNode).next = newNode;
 }
 
 
@@ -25,26 +20,68 @@ void dataFetcher(char *filename) {
     if (filePointer == NULL)
         printf("Error in opening");
 
-    char code[256];
-    int day, month, year;
-    float amount;
+
+    clientsInfo mylist[31];
+    clientsInfo narrow[31];
+    
+
+    for (int i=0; i<30; i++) {
+        fscanf(filePointer, "%s %d %d %d %f", &(mylist[i]).fiscalCode, 
+                                                &(mylist[i]).day, 
+                                                &(mylist[i]).month, 
+                                                &(mylist[i]).year, 
+                                                &(mylist[i]).amount);
+    }
+
+    bool duplicate = false;
+    int clientsCounter = 0;
+    for (int i=0; i<30; i++) {
+        duplicate = false;
+        for (int j=i+1; j<30; j++) {
+            if (strcmp(mylist[i].fiscalCode, mylist[j].fiscalCode) == 0) {
+                duplicate = true;
+                break;
+            }
+        }
+        if (duplicate == false) {
+            memcpy(&narrow[clientsCounter].fiscalCode, &mylist[i].fiscalCode, sizeof(mylist[i].fiscalCode));
+            clientsCounter++;
+        }
+    }
 
     clientsList *node = (clientsList *)malloc(sizeof(clientsList));
     clientsList *head = node;
 
-    for (int i=0; i<30; i++) {
-        fscanf(filePointer, "%s %d %d %d %f", &code, &day, &month, &year, &amount);
-        addNode(code, day, month, year, amount, node);
-        node = (*node).next;
+    for (int i=0; i<clientsCounter; i++) {
+        for (int j=i+1; i<clientsCounter; j++){
+            if (strcmp(narrow[i].fiscalCode, narrow[j].fiscalCode) > 0) {
+                memcpy(&(*node).information.fiscalCode, &narrow[j].fiscalCode, sizeof(narrow[i].fiscalCode));
+            } else {
+                memcpy(&(*node).information.fiscalCode, &narrow[i].fiscalCode, sizeof(narrow[i].fiscalCode));
+            }
 
-        //printf("%0.2f\n", (*node).information.amount);
+            break;
+        }
+
+        createNode(node);
+        node = (*node).next;
     }
+
+
+
+
+    /*
+    for (int i=0; i<clientsCounter; i++)
+        printf("%d) %s\n", i, narrow[i].fiscalCode);
+    */
 
     node = head;
-    while (node != NULL) {
-        printf("%0.2f\n", (*node).information.amount);
+    int i = 0;
+    while ((*node).next != NULL) {
+        i++;
+        printf("%d)  %s\n", i, (*node).information.fiscalCode);
         node = (*node).next;
-    }
+    } 
     
     fclose(filePointer);
 

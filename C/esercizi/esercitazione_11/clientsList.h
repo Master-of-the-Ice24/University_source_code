@@ -13,4 +13,7 @@ typedef struct clientsList {
 } clientsList;
 
 
+
+
+
 void dataFetcher(char *filename);
