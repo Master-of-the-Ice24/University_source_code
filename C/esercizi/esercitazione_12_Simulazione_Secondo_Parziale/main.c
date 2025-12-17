@@ -15,32 +15,43 @@ int main(int argc, char **argv) {
     }
     
     list *node = (list *)malloc(sizeof(list));
+    (*node).next = NULL;
     list *head = node;
 
-    studentInfo studentID;
+    studentInfo ID;
     bool flag = false;
-    list *subnode = node;
+    list *subnode = head;
+    int index = 0;
 
-    while (node == NULL) {
-        fread(&studentID, sizeof(studentInfo), 1, fp);
-
-        while (subnode == NULL) {
-            if ((*subnode).data.studentID == studentID.studentID) {
+    while ((fread(&ID, sizeof(studentInfo), 1, fp) != 0)) {
+        while (subnode != NULL) {
+            if ((*subnode).data.studentID == ID.studentID) {
                 flag = true;
                 break;
             }
             subnode = (*subnode).next;
+            index++;
         }
 
         if (flag == false) {
-            createNode(node, studentID.grade);
+            createNode(node, ID.studentID, ID.grade);
+            node = (*node).next;
         } else {
-            //update value
+            updateNode(head, ID.grade, index);
         }
 
-        node = (*node).next;
-        subnode = head;
         flag = false;
+        subnode = head;
+        index = 0;
+    }
+
+
+    node = head;
+    int c;
+    while (node != NULL) {
+        printf("%d %d %d\n", (*node).data.studentID, (*node).data.grade, c);
+        node = (*node).next;
+        c++;
     }
 
     /*

@@ -5,7 +5,6 @@ typedef struct {
     
 } studentInfo;
 
-
 typedef struct list {
     studentInfo data;
     struct list *next;
@@ -13,4 +12,6 @@ typedef struct list {
 } list;
 
 
-void createNode(list *lastNode, int value);
+void createNode(list *lastNode, int studentID, int value);
+
+void updateNode(list *node, int value, int index);
