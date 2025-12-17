@@ -24,21 +24,23 @@ int main(int argc, char **argv) {
     int index = 0;
 
     while ((fread(&ID, sizeof(studentInfo), 1, fp) != 0)) {
-        searchForDuplicate(head, &ID, &index, &flag);
+        subnode = head;
+        searchForDuplicate(subnode, &ID, &index, &flag);
 
         if (flag == false) {
             createNode(node, ID.studentID, ID.grade);
             node = (*node).next;
         } else {
-            updateNode(head, ID.grade, index);
+            subnode = head;
+            updateNode(subnode, ID.grade, index);
         }
 
         flag = false;
-        subnode = head;
         index = 0;
     }
 
-    printNodes(head);
+    node = head;
+    printNodes(node);
 
     if (fclose(fp) != 0)
         printf("Error in closing");
