@@ -15,3 +15,7 @@ typedef struct list {
 void createNode(list *lastNode, int studentID, int value);
 
 void updateNode(list *node, int value, int index);
+
+void searchForDuplicate(list *node, studentInfo *ID, int *index, bool *flag);
+
+void printNodes(list *node);

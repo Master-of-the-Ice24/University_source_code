@@ -24,14 +24,7 @@ int main(int argc, char **argv) {
     int index = 0;
 
     while ((fread(&ID, sizeof(studentInfo), 1, fp) != 0)) {
-        while (subnode != NULL) {
-            if ((*subnode).data.studentID == ID.studentID) {
-                flag = true;
-                break;
-            }
-            subnode = (*subnode).next;
-            index++;
-        }
+        searchForDuplicate(head, &ID, &index, &flag);
 
         if (flag == false) {
             createNode(node, ID.studentID, ID.grade);
@@ -45,34 +38,7 @@ int main(int argc, char **argv) {
         index = 0;
     }
 
-
-    node = head;
-    int c;
-    while (node != NULL) {
-        printf("%d %d %d\n", (*node).data.studentID, (*node).data.grade, c);
-        node = (*node).next;
-        c++;
-    }
-
-    /*
-    int i=0;
-    while (i<4) {
-        while (i<3) {
-            if (i=2) {
-                flag = true;
-                break;
-            }            
-        }
-        i++;
-    }
-
-    printf("%d ", flag);
-    */
-
-    
-    
-    
-    
+    printNodes(head);
 
     if (fclose(fp) != 0)
         printf("Error in closing");
