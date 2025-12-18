@@ -24,7 +24,6 @@ int main(int argc, char **argv) {
     int index = 0;
 
     while ((fread(&ID, sizeof(studentInfo), 1, fp) != 0)) {
-        subnode = head;
         searchForDuplicate(subnode, &ID, &index, &flag);
 
         if (flag == false) {
@@ -37,6 +36,7 @@ int main(int argc, char **argv) {
 
         flag = false;
         index = 0;
+        subnode = head;
     }
 
     node = head;

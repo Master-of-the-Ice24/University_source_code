@@ -7,29 +7,26 @@
 void createNode(list *lastNode, int studentID, int value) {
     list *newNode = (list *)malloc(sizeof(list));
     (*newNode).next = NULL;
-    (*newNode).data.studentID = studentID;
-    (*newNode).data.examsNumber = 1;
-    (*newNode).data.summedUpGrades = value;
     
+    (*lastNode).data.studentID = studentID;
+    (*lastNode).data.examsNumber = 1;
+    (*lastNode).data.summedUpGrades = value;
     (*lastNode).next = newNode;
-    
 }
 
 void updateNode(list *node, int value, int index) {
     for (int i=0; i<=index; i++) {
-        if (i < index) {
-            node = (*node).next;
-            continue;
-        } 
-        else {
+        if (i == index) { 
             (*node).data.summedUpGrades = (*node).data.summedUpGrades + value;
             (*node).data.examsNumber++;
+            break;
         }
+        node = (*node).next;
     }
 }
 
 void searchForDuplicate(list *node, studentInfo *ID, int *index, bool *flag) {
-    while (node != NULL) { //(*node).next
+    while ((*node).next != NULL) { 
         if ((*node).data.studentID == (*ID).studentID) {
             *flag = true;
             break;
@@ -40,8 +37,12 @@ void searchForDuplicate(list *node, studentInfo *ID, int *index, bool *flag) {
 }
 
 void printNodes(list *node) {
-    while(node != NULL) {
-        printf("ID:%d, exams:%d, total grades:%d\n", (*node).data.studentID, (*node).data.examsNumber, (*node).data.summedUpGrades);
+    while((*node).next != NULL) {
+        printf(
+            "ID:%d, exams:%d, arithmetic average:%0.2f\n", 
+            (*node).data.studentID, (*node).data.examsNumber,
+            (float)(*node).data.summedUpGrades/(float)(*node).data.examsNumber
+        );
         node = (*node).next;
     }
 }
